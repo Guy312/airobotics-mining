@@ -1,0 +1,100 @@
+<div class="container-fluid page-border">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Pile Volume estimation app by Airobotics</h1>
+        </div>
+    </div>
+    <div class="row selection-form father">
+        <div class="flex-col-md-3 small-border child">
+            <div class="container-border form-padding">
+                <div class="row padding-bottom">
+                    <div class="col-md-12">
+                        <form>
+                            <div class="form-group">
+                                <label for="PileName">Select Pile</label>
+                                <select id="PileName" class="form-control" ng-model="pileName" ng-change="populateDates(pileName)">
+                                    <option value="">----- Please Select -----</option>
+                                    <option ng-repeat="pileName in pileNames" value="{{ pileName }}"> {{ pileName }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="FlightTime">Select Publish</label>
+                                <select id="FlightTime" class="form-control" ng-model="pileId"  ng-change="selectPile(pileId)">
+                                    <option value="">----- Please Select -----</option>
+                                    <option ng-repeat="date in dates" value="{{ date.id }}">{{date.start_date| date:'yyyy/MM/dd hh:mm' }}</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="seperator"></div>
+                
+                <div class="row details">
+                    <div class="col-md-12">
+                        <div class="row ">
+                            <div class="col-md-12 details-header">
+                                Pile Metrics
+                            </div>
+                        </div>
+                        <div class="row detail">
+                            <div class="col-md-5 header">
+                                Pile Name
+                            </div>
+                            <div class="col-md-7">
+                                {{ selectedPile.pile_name || '---' }}
+                            </div>
+                        </div>
+                        <div class="row detail">
+                            <div class="col-md-5 header">
+                                Start
+                            </div>
+                            <div class="col-md-7">
+                                {{ selectedPile.start_date| date:'yyyy/MM/dd hh:mm' || '---'  }}
+                            </div>
+                        </div>
+                        <div class="row detail">
+                            <div class="col-md-5 header">
+                                End
+                            </div>
+                            <div class="col-md-7">
+                                {{ selectedPile.end_date| date:'yyyy/MM/dd hh:mm' || '---'  }}
+                            </div>
+                        </div>
+                        <div class="row detail">
+                            <div class="col-md-5 header">
+                                Volume
+                            </div>
+                            <div class="col-md-7">
+                                {{ selectedPile.volume || '---'  }}
+                            </div>
+                        </div>
+                        <div class="row detail">
+                            <div class="col-md-5 header">
+                                Area
+                            </div>
+                            <div class="col-md-7">
+                                {{ selectedPile.surface || '---'  }}
+                            </div>
+                        </div>
+                        <div class="row logos">
+                            <div class="col-md-9 text-center vcenter airobotic">
+                                <img src="./assets/images/airobotics.png" class="img-responsive center-block"
+                                     alt="Airobotics">
+                            </div>
+                            <div class="col-md-3 text-center vcenter">
+                                <img src="./assets/images/ge.png" class="img-responsive center-block" alt="GE">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-col-md-9 small-border child">
+            <div class="container-border vcenter img-container ">
+                <img ng-if="selectedPile" src="data:image/png;base64, {{selectedPileImage}}" alt="{{ selectedPile[0].pile_name }} " class="img-responsive  center-block" />
+                <label ng-if="!selectedPile" class="center-block">Please select a pile</label>
+            </div>
+        </div>
+    </div>
+</div>

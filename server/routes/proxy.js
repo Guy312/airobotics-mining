@@ -14,6 +14,7 @@ var router = express.Router();
 var vcapServices = {};
 
 var corporateProxyServer = process.env.http_proxy || process.env.HTTP_PROXY || process.env.https_proxy || process.env.HTTPS_PROXY;
+
 var corporateProxyAgent;
 if (corporateProxyServer) {
 	corporateProxyAgent = new HttpsProxyAgent(corporateProxyServer);
@@ -102,7 +103,11 @@ function getEndpointAndZone(key, credentials) {
 		var urlObj = url.parse(credentials.query.uri);
 		out.serviceEndpoint = urlObj.protocol + '//' + urlObj.host;
 		out.zoneId = credentials.query['zone-http-header-value'];
-	}
+	} else if (key === 'predix-uaa') {
+        // var urlObj = url.parse(credentials.);
+        // out.serviceEndpoint = urlObj.protocol + '//' + urlObj.host;
+        // out.zoneId = credentials.query['zone-http-header-value'];
+    }
 	if (!out.serviceEndpoint) {
 		console.log('no proxy set for service: ' + key);
 	}
